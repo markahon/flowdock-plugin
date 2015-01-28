@@ -130,17 +130,27 @@ public class FlowdockNotifier extends Notifier {
             listener.getLogger().println("Flowdock: Team Inbox notification sent successfully");
 
             if (chatNotification) {
+            	String importanceIcon = null;
                 switch (buildResult) {
                 case FAILURE:
+                	importanceIcon = ":exclamation:";
+                    break;
                 case FIXED:
+                	importanceIcon = ":white_check_mark:";
+                    break;
                 case UNSTABLE:
-                    ChatMessage chatMsg = ChatMessage.fromBuild(build, buildResult, listener);
-                    chatMsg.setTags(vars.expand(notificationTags));
-                    api.pushChatMessage(chatMsg);
-                    logger.println("Flowdock: Chat notification sent successfully");
+                	importanceIcon = ":grey_exclamation:";
                     break;
                 default:
                     break;
+                }
+                
+                if (importanceIcon != null) {
+                    ChatMessage chatMsg = ChatMessage.fromBuild(build, buildResult, listener);
+                    chatMsg.setTags(vars.expand(notificationTags));
+                    chatMsg.setContent(importanceIcon + chatMsg.content); 
+                    api.pushChatMessage(chatMsg);
+                    logger.println("Flowdock: Chat notification sent successfully");
                 }
             }
         }
