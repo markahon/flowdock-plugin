@@ -148,7 +148,7 @@ public class FlowdockNotifier extends Notifier {
                 if (importanceIcon != null) {
                     ChatMessage chatMsg = ChatMessage.fromBuild(build, buildResult, listener);
                     chatMsg.setTags(vars.expand(notificationTags));
-                    chatMsg.setContent(importanceIcon + chatMsg.content); 
+                    chatMsg.setContent(importanceIcon + " " + chatMsg.content); 
                     api.pushChatMessage(chatMsg);
                     logger.println("Flowdock: Chat notification sent successfully");
                 }
