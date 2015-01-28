@@ -139,8 +139,8 @@ public class FlowdockNotifier extends Notifier {
                     api.pushChatMessage(chatMsg);
                     logger.println("Flowdock: Chat notification sent successfully");
                     break;
-				default:
-					break;
+                default:
+                    break;
                 }
             }
         }
