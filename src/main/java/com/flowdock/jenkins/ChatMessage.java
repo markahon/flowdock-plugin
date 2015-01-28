@@ -40,6 +40,10 @@ public class ChatMessage extends FlowdockMessage {
         String buildNo = build.getDisplayName().replaceAll("#", "");
         content.append(projectName + configuration).append(" build ").append(buildNo);
         content.append(" ").append(buildResult.getHumanResult());
+        if (build.getResult() == build.getPreviousBuild().getResult()) {        	
+        	content.append(" still");
+        }
+        content.append(".");
 
         String rootUrl = Hudson.getInstance().getRootUrl();
         String buildLink = (rootUrl == null) ? null : rootUrl + build.getUrl();
